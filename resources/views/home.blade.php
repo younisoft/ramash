@@ -1,0 +1,19 @@
+@extends('layouts.app')
+@section('content')
+<section class="hero"><img class="hero-image" src="/images/{{ file_exists(public_path('images/campaign.png'))?'campaign.png':'hero.jpg' }}" alt="{{ __('إطلالة من مجموعة رماش') }}" fetchpriority="high"><div class="hero-shade"></div><div class="hero-content container"><span class="eyebrow light">THE ART OF EVERYDAY ELEGANCE &nbsp; / &nbsp; 2026</span><h1>{{ __('حضورك،') }}<br><em>{{ __('في التفاصيل.') }}</em></h1><p>{{ __('أناقة هادئة. شخصية مختلفة.') }}<br>{{ __('اكتشف قطعًا تشبهك، لكل يوم ومناسبة.') }}</p><a class="button ivory" href="/shop">{{ __('اكتشف المجموعة') }} <x-icon name="arrow"/></a></div><div class="hero-bottom"><span>COLLECTION 01 &nbsp; / &nbsp; 2026</span><a href="#collections">{{ __('انزل لتكتشف') }} ↓</a><span>RAMASH — SELECTED WITH CARE</span></div></section>
+<section id="collections" class="section container"><div class="section-heading"><div><span class="eyebrow">CURATED FOR YOU</span><h2>{{ __('عالم من التفاصيل') }}</h2></div><p>{{ __('كل قطعة، بداية لإطلالة جديدة.') }}</p></div><div class="category-grid">@foreach($categories as $category)<a class="category-card" href="/category/{{ $category->slug }}"><div><img src="/images/{{ $category->image }}" alt="{{ $category->label }}" loading="lazy"></div><h3>{{ $category->label }} <span>↗</span></h3></a>@endforeach</div></section>
+<section class="section container"><div class="section-heading"><div><span class="eyebrow">THE RAMASH EDIT</span><h2>{{ __('مختارات تستحق مكانها') }}</h2></div><a class="text-link" href="/shop">{{ __('تسوّق المجموعة') }} <x-icon name="arrow" size="18"/></a></div><div class="product-grid">@foreach($featured as $product)<x-product-card :product="$product"/>@endforeach</div></section>
+@if($categories->contains('slug','thobes'))
+<section class="editorial"><div class="editorial-photo"><img src="/images/tailoring-craft.jpg" alt="{{ __('أناقة التفاصيل والتفصيل') }}" loading="lazy"><span class="image-caption">MADE PERSONAL.</span></div><div class="editorial-copy"><span class="eyebrow">A PERSONAL SIGNATURE</span><h2>{{ __('ليس مجرد ثوب.') }}<br><em>{{ __('إنه توقيعك.') }}</em></h2><p>{{ __('من اختيار القماش إلى آخر تفصيلة. اكتشف تجربة التفصيل التي تبدأ بك، وتنتهي بقطعة على مقاسك.') }}</p><div class="editorial-steps"><span>01 &nbsp; {{ __('اختر تصميمك') }}</span><span>02 &nbsp; {{ __('حدد طريقة المقاس') }}</span><span>03 &nbsp; {{ __('دع التفاصيل لنا') }}</span></div><a class="button" href="/category/thobes">{{ __('اكتشف ثياب التفصيل') }} <x-icon name="arrow"/></a></div></section>
+@endif
+@if($shemaghs->isNotEmpty())
+<section class="shemagh-section" id="shemaghs" aria-labelledby="shemagh-heading">
+ <x-shemagh-banner/>
+ <div class="shemagh-content"><header class="shemagh-heading"><p>{{ __('قطن بتفاصيل مميزة') }}</p><h2 id="shemagh-heading">{{ __('الأشمغة') }}</h2></header>
+ <div class="shemagh-grid">@foreach($shemaghs as $product)<x-product-card :product="$product" :minimal="true"/>@endforeach</div>
+ <a class="shemagh-explore" href="/category/shemagh">{{ __('استكشف إصدارات الأشمغة') }} <x-icon name="arrow" size="18"/></a></div>
+</section>
+@endif
+<section class="section container"><div class="section-heading"><div><span class="eyebrow">NEW PERSPECTIVES</span><h2>{{ __('جديد خزانة ملابسك') }}</h2></div><a class="text-link" href="/shop?sort=new">{{ __('شاهد الجديد') }} <x-icon name="arrow" size="18"/></a></div><div class="product-grid">@foreach($newProducts as $product)<x-product-card :product="$product"/>@endforeach</div></section>
+<section class="story-banner container"><span class="eyebrow">LESS, BUT MORE YOU.</span><h2>{{ __('تفاصيل أقل. تعبير أكبر.') }}</h2><p>{{ __('نختار ما يضيف إلى إطلالتك، ويمنحك حرية أن تكون أنت.') }}</p><a class="text-link" href="/pages/about">{{ __('حكاية رماش') }} ←</a></section>
+@endsection

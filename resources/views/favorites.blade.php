@@ -1,0 +1,3 @@
+@extends('layouts.app')
+@section('title',__('المفضلة').' | RAMASH')
+@section('content')<section class="container section"><header class="page-heading"><span class="eyebrow">SAVED FOR LATER</span><h1>{{ __('قطع لفتت انتباهك') }}</h1><p>{{ __('احتفظ باختياراتك، وعد إليها متى أحببت.') }}</p></header>@if($products->count())<div class="product-grid">@foreach($products as $product)<x-product-card :product="$product"/>@endforeach</div>@else<div class="empty-state"><x-icon name="heart" size="52"/><h2>{{ __('لم تضف قطعًا للمفضلة بعد') }}</h2><a class="button" href="/shop">{{ __('اكتشف المجموعة') }}</a></div>@endif</section>@endsection

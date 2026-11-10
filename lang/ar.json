@@ -1,0 +1,7 @@
+{
+  "pending": "قيد المراجعة",
+  "processing": "قيد التجهيز",
+  "shipped": "تم الشحن",
+  "completed": "مكتمل",
+  "cancelled": "ملغي"
+}

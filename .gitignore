@@ -1,0 +1,12 @@
+/vendor/
+/node_modules/
+/.env
+/database/*.sqlite*
+/storage/**/*.log
+/storage/framework/sessions/*
+/storage/framework/views/*
+/bootstrap/cache/*.php
+/.phpunit.cache/
+/public/preview.html
+.DS_Store
+/storage/framework/cache/data/*
