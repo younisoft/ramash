@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
 <meta name="theme-color" content="#333a31"><link rel="icon" href="/favicon.svg?v=ramash" type="image/svg+xml"><link rel="icon" href="/favicon-32.png?v=ramash" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180"><link rel="stylesheet" href="/css/fonts.css"><link rel="stylesheet" href="/css/store.css"><script src="/js/store.js" defer></script></head><body>
 <a class="skip" href="#main">{{ __('انتقل إلى المحتوى') }}</a>
-<div class="announcement"><span>{{ __('شحن مجاني لطلباتك من') }} <x-price :amount="config('store.free_shipping')"/></span><a href="/pages/shipping">{{ __('اكتشف المزيد') }} ←</a></div>
+<div class="announcement">@if(config('store.coming_soon'))<span class="soon-badge">{{ __('قريباً') }}</span>@endif<span>{{ __('شحن مجاني لطلباتك من') }} <x-price :amount="config('store.free_shipping')"/></span><a href="/pages/shipping">{{ __('اكتشف المزيد') }} ←</a></div>
 <header class="site-header">
  <div class="header-main container"><div class="header-tools"><button class="icon-button mobile-menu" data-open="menu" aria-label="{{ __('القائمة') }}"><x-icon name="menu"/></button><button class="icon-button" data-open="search" aria-label="{{ __('البحث') }}"><x-icon name="search"/></button><span class="small desktop-only">{{ __('ابحث عن قطعتك') }}</span></div>
  <a class="wordmark" href="/" aria-label="{{ app()->getLocale()==='ar'?'رماش':'Ramash' }} — {{ __('الرئيسية') }}"><x-brand-logo/></a>

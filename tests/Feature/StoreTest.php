@@ -37,6 +37,10 @@ class StoreTest extends TestCase {
   $this->post('/cart',['variant_id'=>$v->id,'quantity'=>2,'measurement'=>'visit']);
   $this->post('/cart',['variant_id'=>$v->id,'quantity'=>1,'measurement'=>'previous'])->assertSessionHasErrors('quantity');
  }
+ public function test_coming_soon_badge_shows_on_all_pages_and_can_be_disabled():void{
+  foreach(['/','/shop','/products/ivory-signature','/cart','/login','/pages/about'] as $url)$this->get($url)->assertOk()->assertSee('<span class="soon-badge">قريباً</span>',false);
+  config(['store.coming_soon'=>false]);$this->get('/')->assertOk()->assertDontSee('soon-badge');
+ }
  public function test_shemagh_category_and_best_selling_sort():void{
   $this->get('/category/shemagh')->assertOk()->assertSee('الأشمغة')->assertSee('5 منتج')->assertSee('شماغ تراث')->assertSee('غترة')->assertDontSee('ثوب سيجنتشر');
   $this->get('/category/shemagh?sort=price_asc')->assertOk()->assertSeeInOrder(['غترة','شماغ كلاسيك','شماغ شتوي','شماغ تراث']);

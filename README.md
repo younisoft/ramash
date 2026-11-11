@@ -140,3 +140,22 @@ composer test
 من لوحة التحكم ← **إدارة أقسام المتجر** (`/admin/categories`) يستطيع المدير إظهار أو إخفاء أي قسم. الإخفاء يشمل القوائم والرئيسية والبحث والمفضلة والروابط المباشرة والشراء. تبقى المنتجات والمخزون والطلبات السابقة محفوظة. إعادة الإظهار تعيد المنتجات النشطة فقط، وجميع الأقسام ظاهرة افتراضيًا. إضافة الأقسام وتغيير أسمائها ليست ضمن هذه الإضافة.
 
 تم التحقق بـ21 اختبارًا و182 تحققًا، تشمل الصلاحيات وصحة المدخلات والإخفاء والإظهار والوصول المباشر والسلة.
+
+## نشر الديمو على استضافة
+
+يحتاج الخادم PHP 8.2 أو أحدث مع الإضافات `pdo_sqlite` و`mbstring` و`openssl` و`fileinfo`، وComposer.
+
+```bash
+git clone https://github.com/younisoft/ramash.git
+cd ramash
+composer install --no-dev --optimize-autoloader
+cp .env.production.example .env   # مضبوط على https://ramash.sa
+composer deploy                    # مفتاح جديد + قاعدة البيانات + بيانات الديمو + الكاش
+php artisan store:admin            # إنشاء حساب المدير
+```
+
+- وجّه الدومين إلى مجلد `public`. إذا كانت الاستضافة لا تسمح بذلك، فملف `.htaccess` في جذر المشروع يحوّل الطلبات إلى `public` ويمنع الوصول إلى `.env` وبقية الملفات (Apache فقط).
+- أعطِ صلاحية الكتابة للمجلدات `storage/` و`bootstrap/cache/` و`database/` و`public/images/`.
+- `SESSION_SECURE_COOKIE=true` يتطلب HTTPS. إن كان الموقع يعمل على HTTP فقط فاجعلها `false`، وإلا فلن يعمل تسجيل الدخول والسلة.
+- بعد أي تعديل على `.env` شغّل `php artisan config:cache`.
+- لإخفاء شارة "قريباً": `STORE_COMING_SOON=false`.

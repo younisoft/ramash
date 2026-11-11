@@ -1,0 +1,12 @@
+# Used only when the hosting cannot point the domain to the "public" folder.
+# Sends every request to public/ so project files (.env, database, vendor...) stay unreachable.
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule (^|/)\. - [F,L]
+    RewriteCond %{REQUEST_URI} !^/public/
+    RewriteRule ^(.*)$ public/$1 [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    Require all denied
+</IfModule>

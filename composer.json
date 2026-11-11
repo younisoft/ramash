@@ -38,6 +38,12 @@
         ],
         "test": "@php vendor/bin/phpunit",
         "dev": "@php artisan serve --host=127.0.0.1 --port=8000",
-        "setup": "@php scripts/setup.php"
+        "setup": "@php scripts/setup.php",
+        "deploy": [
+            "@php scripts/setup.php",
+            "@php artisan config:cache",
+            "@php artisan route:cache",
+            "@php artisan view:cache"
+        ]
     }
 }
