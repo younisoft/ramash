@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder {
    foreach($sizes as $size)$product->variants()->firstOrCreate(['size'=>$size],['stock'=>12]);
   }
   $this->call(RamashAgalSeeder::class);
+  $this->call(RamashAccessoriesSeeder::class);
  }
 }
