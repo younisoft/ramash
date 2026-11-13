@@ -99,7 +99,7 @@ class StoreTest extends TestCase {
  public function test_admin_creates_product_with_validated_image():void{
   $u=User::create(['name'=>'Admin','email'=>'admin@example.com','password'=>'long-password-123']);$u->is_admin=true;$u->save();
   $this->actingAs($u)->get('/admin/products/create')->assertOk();
-  $data=['name'=>'منتج اختبار','name_en'=>'Test product','slug'=>'test-product','description'=>'Test description','description_en'=>'Test description','price'=>199,'category_id'=>1,'material'=>'قطن','material_en'=>'Cotton','sizes'=>'S,M,L','stock'=>4,'image'=>\Illuminate\Http\UploadedFile::fake()->image('product.jpg')];
+  $data=['name'=>'منتج اختبار','name_en'=>'Test product','slug'=>'test-product','description'=>'Test description','description_en'=>'Test description','price'=>199,'category_id'=>\App\Models\Category::where('slug','thobes')->value('id'),'material'=>'قطن','material_en'=>'Cotton','sizes'=>'S,M,L','stock'=>4,'image'=>\Illuminate\Http\UploadedFile::fake()->image('product.jpg')];
   $this->post('/admin/products',$data)->assertRedirect('/admin');
   $p=Product::where('slug','test-product')->firstOrFail();$this->assertEquals(3,$p->variants()->count());$this->assertEquals(19900,$p->price);
   $this->assertFileExists(public_path('images/'.$p->image));unlink(public_path('images/'.$p->image));

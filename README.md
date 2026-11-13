@@ -85,7 +85,7 @@ php artisan store:admin
 | الخلفية | Laravel 12.69.1 |
 | PHP المستهدف | 8.2 أو أحدث، والاختبار على PHP 8.5.11 |
 | الواجهة | Blade + CSS + JavaScript دون إطار إضافي |
-| قاعدة البيانات | SQLite محلية؛ يمكن الانتقال إلى MySQL عبر الإعدادات والمهاجرات |
+| قاعدة البيانات | MySQL في الإنتاج، وSQLite للتطوير المحلي والاختبارات |
 | الجلسات | ملفات محلية |
 | الاختبارات | PHPUnit 11.5.56 |
 | إدارة الحزم | Composer مع composer.lock |
@@ -143,19 +143,23 @@ composer test
 
 ## نشر الديمو على استضافة
 
-يحتاج الخادم PHP 8.2 أو أحدث مع الإضافات `pdo_sqlite` و`mbstring` و`openssl` و`fileinfo`، وComposer.
+يحتاج الخادم PHP 8.2 أو أحدث مع الإضافات `pdo_mysql` و`mbstring` و`openssl` و`fileinfo`، وComposer. قاعدة البيانات في الإنتاج MySQL (أو MariaDB).
+
+قبل التثبيت أنشئ القاعدة من cPanel ← **MySQL Databases**: أنشئ قاعدة بيانات، ثم مستخدمًا بكلمة مرور، ثم أضف المستخدم إلى القاعدة مع **ALL PRIVILEGES**. في cPanel يُضاف اسم الحساب قبل الأسماء تلقائيًا (مثل `account_ramash`)، فاكتبها في `.env` بالاسم الكامل.
 
 ```bash
 git clone https://github.com/younisoft/ramash.git
 cd ramash
 composer install --no-dev --optimize-autoloader
 cp .env.production.example .env   # مضبوط على https://ramash.sa
+# عدّل DB_DATABASE و DB_USERNAME و DB_PASSWORD في .env
 composer deploy                    # مفتاح جديد + قاعدة البيانات + بيانات الديمو + الكاش
 php artisan store:admin            # إنشاء حساب المدير
 ```
 
 - وجّه الدومين إلى مجلد `public`. إذا كانت الاستضافة لا تسمح بذلك، فملف `.htaccess` في جذر المشروع يحوّل الطلبات إلى `public` ويمنع الوصول إلى `.env` وبقية الملفات (Apache فقط).
-- أعطِ صلاحية الكتابة للمجلدات `storage/` و`bootstrap/cache/` و`database/` و`public/images/`.
+- أعطِ صلاحية الكتابة للمجلدات `storage/` و`bootstrap/cache/` و`public/images/`.
+- التطوير المحلي والاختبارات يمكن أن تبقى على SQLite؛ التبديل بين القاعدتين يتم عبر `DB_CONNECTION` في `.env` فقط.
 - `SESSION_SECURE_COOKIE=true` يتطلب HTTPS. إن كان الموقع يعمل على HTTP فقط فاجعلها `false`، وإلا فلن يعمل تسجيل الدخول والسلة.
 - بعد أي تعديل على `.env` شغّل `php artisan config:cache`.
 - لإخفاء شارة "قريباً": `STORE_COMING_SOON=false`.
