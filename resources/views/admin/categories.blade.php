@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title','إدارة أقسام المتجر | RAMASH')
+@section('robots','noindex,follow')
 @section('content')
 <section class="container section" dir="rtl">
  <a class="text-link" href="/admin">العودة إلى لوحة التحكم ←</a>

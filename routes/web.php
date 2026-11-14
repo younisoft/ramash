@@ -1,8 +1,10 @@
 <?php
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
-use App\Http\Controllers\{StoreController,CartController,CheckoutController,AuthController,AdminController};
+use App\Http\Controllers\{SeoController,StoreController,CartController,CheckoutController,AuthController,AdminController};
 Route::get('/',[StoreController::class,'home'])->name('home');
+Route::get('/robots.txt',[SeoController::class,'robots']);
+Route::get('/sitemap.xml',[SeoController::class,'sitemap']);
 Route::get('/shop',[StoreController::class,'catalog'])->name('shop');
 Route::get('/category/{category}',[StoreController::class,'catalog'])->name('category');
 Route::get('/products/{slug}',[StoreController::class,'product'])->name('product');

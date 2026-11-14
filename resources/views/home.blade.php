@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title',__('رماش | ثياب وأشمغة وأزياء رجالية سعودية'))
+@section('canonical', url('/'))
+@push('structured-data')@include('seo.site-schema')@endpush
 
 @section('content')
 <section class="hero home-hero" data-home-hero>

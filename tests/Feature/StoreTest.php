@@ -37,6 +37,20 @@ class StoreTest extends TestCase {
   $this->post('/cart',['variant_id'=>$v->id,'quantity'=>2,'measurement'=>'visit']);
   $this->post('/cart',['variant_id'=>$v->id,'quantity'=>1,'measurement'=>'previous'])->assertSessionHasErrors('quantity');
  }
+ public function test_seo_robots_sitemap_and_structured_data():void{
+  $this->get('/google0e964b9cf4dd4bb9.html')->assertNotFound(); // static file, served by the web server
+  $this->assertFileExists(public_path('google0e964b9cf4dd4bb9.html'));
+  $this->get('/robots.txt')->assertOk()->assertHeader('Content-Type','text/plain; charset=UTF-8')->assertSee('Disallow: /admin')->assertSee('Sitemap: '.url('/sitemap.xml'));
+  $sitemap=$this->get('/sitemap.xml')->assertOk()->assertSee(url('/category/shemagh'))->assertSee(route('product','ivory-signature'))->assertSee(url('/pages/privacy'))->getContent();
+  $this->assertNotFalse(simplexml_load_string($sitemap));
+  $this->get('/')->assertSee('<meta name="robots" content="index,follow,max-image-preview:large">',false)->assertSee('"@type":"Organization"',false)->assertSee('"@type":"WebSite"',false)->assertSee('og:image',false);
+  $this->get('/products/ivory-signature')->assertSee('"@type":"Product"',false)->assertSee('"price":"799.00"',false)->assertSee('<meta property="og:type" content="product">',false);
+  $this->get('/shop?q=test')->assertSee('<meta name="robots" content="noindex,follow">',false)->assertSee('<link rel="canonical" href="'.url('/shop').'">',false);
+  $this->get('/cart')->assertSee('noindex,follow');
+  config(['store.indexable'=>false]);
+  $this->get('/')->assertSee('<meta name="robots" content="noindex,nofollow">',false);
+  $this->get('/robots.txt')->assertSee('Disallow: /');
+ }
  public function test_policy_page_and_footer():void{
   $this->get('/pages/privacy')->assertOk()->assertSee('سياسة الاستخدام والخصوصية')->assertSee('حقوقك على بياناتك')->assertSee('375 ر.س')->assertSee('الهيئة السعودية للبيانات والذكاء الاصطناعي');
   $this->get('/')->assertOk()->assertSee('روابط سريعة')->assertSee('خدمات العملاء')->assertSee('وسائل التواصل')->assertSee('title="Visa"',false)->assertSee('title="mada"',false)->assertSee('title="Tabby"',false)->assertSee('طرق الدفع المتاحة عند الإطلاق');

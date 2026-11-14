@@ -1,5 +1,8 @@
 @extends('layouts.app')
 @section('title',($selected?->label ?? __('جميع المنتجات')).' | RAMASH')
+@section('description', $selected ? __('تسوّق :category من رماش: تصاميم رجالية سعودية بتفاصيل مدروسة، وشحن مجاني للطلبات من 375 ر.س.', ['category' => $selected->label]) : __('تسوّق جميع منتجات رماش: ثياب وتفصيل، أشمغة، جاكيتات وسديري، عطور وأحذية وإكسسوارات رجالية.'))
+@section('canonical', $selected ? url('/category/'.$selected->slug) : url('/shop'))
+@if(request()->hasAny(['q','min','max','type','sale','sort']))@section('robots','noindex,follow')@endif
 @section('content')
 @if($selected?->slug==='shemagh')<x-shemagh-banner/>@endif
 <div class="container {{ $selected?->slug==='shemagh'?'shemagh-catalog':'' }}"><div class="breadcrumbs"><a href="/">{{ __('الرئيسية') }}</a> / <span>{{ $selected?->label ?? __('جميع المنتجات') }}</span></div><header class="page-heading"><span class="eyebrow">THE COLLECTION</span><h1>{{ request('q')?__('نتائج البحث').': '.request('q'):($selected?->label ?? __('قطع تختارها لنفسك')) }}</h1><p>{{ __('تصاميم مدروسة. تفاصيل تبقى.') }}</p></header><div class="category-chips chips"><a class="{{ !$selected?'active':'' }}" href="/shop">{{ __('الكل') }}</a>@foreach($categories as $category)<a class="{{ $selected?->id===$category->id?'active':'' }}" href="/category/{{ $category->slug }}">{{ $category->label }}</a>@endforeach</div>

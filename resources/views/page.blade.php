@@ -1,6 +1,8 @@
 @extends('layouts.app')
 @php($titles=['about'=>'حكاية رماش','sizes'=>'دليل المقاسات','shipping'=>'الشحن والتوصيل','returns'=>'الاستبدال والاسترجاع','privacy'=>'سياسة الاستخدام والخصوصية','contact'=>'تواصل معنا','branches'=>'الفروع وأخذ المقاس'])
 @section('title',__($titles[$page]).' | RAMASH')
+@php($pageDescriptions=['about'=>'تعرّف على رماش، علامة سعودية للأزياء الرجالية تهتم بالتفاصيل من الثوب إلى الشماغ والعطور.','sizes'=>'دليل مقاسات رماش للقطع الجاهزة بالسنتيمتر، وكيف تختار مقاسك أو تعتمد مقاس التفصيل.','shipping'=>'رسوم ومدد الشحن والتوصيل في رماش، والشحن المجاني للطلبات من 375 ر.س.','returns'=>'سياسة الاستبدال والاسترجاع في رماش للقطع الجاهزة ومنتجات التفصيل.','privacy'=>'شروط استخدام متجر رماش وكيف نحمي بياناتك الشخصية وحقوقك عليها.','contact'=>'تواصل مع رماش بخصوص قطعة أو مقاس أو تفاصيل طلبك.','branches'=>'أخذ المقاس وطلبات التفصيل في رماش.'])
+@section('description',__($pageDescriptions[$page]))
 @section('content')<section class="container section"><div class="breadcrumbs"><a href="/">{{ __('الرئيسية') }}</a> / {{ __($titles[$page]) }}</div><header class="page-heading"><span class="eyebrow">THE DETAILS MATTER</span><h1>{{ __($titles[$page]) }}</h1></header><div class="prose">
 @switch($page)
 @case('about')<h2>{{ __('أناقة تبدأ بك') }}</h2><p>{{ __('رماش مساحة لاختيار ما يشبهك. تجمع بين بساطة التصميم والاهتمام بالتفاصيل، من القطع اليومية إلى الإطلالات الخاصة.') }}</p><img class="about-photo" src="/images/{{ file_exists(public_path('images/campaign.png'))?'campaign.png':'editorial.jpg' }}" alt="{{ __('مجموعة رماش') }}"><p>{{ __('هذه النسخة تعرض هوية وكتالوجًا تجريبيين. يمكن تخصيص جميع المنتجات والصور والمحتوى قبل إطلاق العلامة.') }}</p><a class="button" href="/shop">{{ __('اكتشف المجموعة') }}</a>@break

@@ -1,5 +1,10 @@
 @extends('layouts.app')
 @section('title',$product->label.' | RAMASH')
+@section('description', \Illuminate\Support\Str::limit(trim(preg_replace('/\s+/u',' ',strip_tags($product->copy))), 155))
+@section('og_image', url('/images/'.$product->image))
+@section('og_type','product')
+@section('canonical', route('product',$product->slug))
+@push('structured-data')@include('seo.product-schema')@endpush
 @section('content')
 <div class="container"><div class="breadcrumbs"><a href="/">{{ __('الرئيسية') }}</a> / <a href="/category/{{ $product->category->slug }}">{{ $product->category->label }}</a> / {{ $product->label }}</div><div class="product-detail"><x-product-gallery :product="$product"/>
 <div class="product-information"><h1>{{ $product->label }}</h1><div class="detail-price">@if($product->price>0)<x-price :amount="$product->price"/>@else<span>{{ __('السعر قريبًا') }}</span>@endif @if($product->compare_price)<del><x-price :amount="$product->compare_price"/></del><span class="discount">−{{ $product->discount }}%</span>@endif</div><small class="muted">{{ __('الأسعار المعروضة شاملة الضريبة') }}</small><p class="product-description">{{ $product->copy }}</p>

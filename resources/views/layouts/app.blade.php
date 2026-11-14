@@ -1,7 +1,14 @@
 <!doctype html><html lang="{{ app()->getLocale() }}" dir="{{ app()->getLocale()==='ar'?'rtl':'ltr' }}"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="csrf-token" content="{{ csrf_token() }}">
-<title>@yield('title',__('رماش | تفاصيل تشبهك'))</title><meta name="description" content="@yield('description',__('اكتشف مجموعة رماش من الأزياء والتفصيل والعطور والإكسسوارات.'))">@if(config('store.demo'))<meta name="robots" content="noindex,nofollow">@endif
-<link rel="canonical" href="{{ url()->current() }}"><meta property="og:site_name" content="RAMASH"><meta property="og:image" content="{{ url('/images/campaign.png') }}"><meta property="og:type" content="website">
+@php($seoTitle = trim($__env->yieldContent('title', __('رماش | تفاصيل تشبهك'))))
+@php($seoDescription = trim($__env->yieldContent('description', __('رماش علامة سعودية للأزياء الرجالية: ثياب وتفصيل، أشمغة، جاكيتات وسديري، عطور وإكسسوارات بتصاميم هادئة تهتم بالتفاصيل.'))))
+@php($seoImage = trim($__env->yieldContent('og_image', url('/images/og-ramash.jpg'))))
+@php($seoRobots = config('store.indexable') ? trim($__env->yieldContent('robots', 'index,follow,max-image-preview:large')) : 'noindex,nofollow')
+<title>{!! $seoTitle !!}</title><meta name="description" content="{!! $seoDescription !!}"><meta name="robots" content="{!! $seoRobots !!}">
+<link rel="canonical" href="{!! trim($__env->yieldContent('canonical', e(url()->current()))) !!}">
+<meta property="og:site_name" content="{{ app()->getLocale()==='ar'?'رماش':'RAMASH' }}"><meta property="og:locale" content="{{ app()->getLocale()==='ar'?'ar_SA':'en_US' }}"><meta property="og:type" content="@yield('og_type','website')"><meta property="og:title" content="{!! $seoTitle !!}"><meta property="og:description" content="{!! $seoDescription !!}"><meta property="og:url" content="{!! trim($__env->yieldContent('canonical', e(url()->current()))) !!}"><meta property="og:image" content="{!! $seoImage !!}">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:site" content="@ramashksa"><meta name="twitter:title" content="{!! $seoTitle !!}"><meta name="twitter:description" content="{!! $seoDescription !!}"><meta name="twitter:image" content="{!! $seoImage !!}">
+@stack('structured-data')
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
