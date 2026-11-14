@@ -37,6 +37,12 @@ class StoreTest extends TestCase {
   $this->post('/cart',['variant_id'=>$v->id,'quantity'=>2,'measurement'=>'visit']);
   $this->post('/cart',['variant_id'=>$v->id,'quantity'=>1,'measurement'=>'previous'])->assertSessionHasErrors('quantity');
  }
+ public function test_policy_page_and_footer():void{
+  $this->get('/pages/privacy')->assertOk()->assertSee('سياسة الاستخدام والخصوصية')->assertSee('حقوقك على بياناتك')->assertSee('375 ر.س')->assertSee('الهيئة السعودية للبيانات والذكاء الاصطناعي');
+  $this->get('/')->assertOk()->assertSee('روابط سريعة')->assertSee('خدمات العملاء')->assertSee('وسائل التواصل')->assertSee('title="Visa"',false)->assertSee('title="mada"',false)->assertSee('طرق الدفع المتاحة عند الإطلاق');
+  config(['store.social.instagram'=>'https://instagram.com/example']);$this->get('/')->assertSee('href="https://instagram.com/example"',false);
+  $this->post('/locale',['locale'=>'en']);$this->get('/pages/privacy')->assertOk()->assertSee('Terms of use &amp; privacy',false)->assertSee('Your data rights')->assertSee('Quick links');
+ }
  public function test_coming_soon_badge_shows_on_all_pages_and_can_be_disabled():void{
   foreach(['/','/shop','/products/ivory-signature','/cart','/login','/pages/about'] as $url)$this->get($url)->assertOk()->assertSee('<span class="soon-badge">قريباً</span>',false);
   config(['store.coming_soon'=>false]);$this->get('/')->assertOk()->assertDontSee('soon-badge');

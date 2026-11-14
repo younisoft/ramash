@@ -141,3 +141,13 @@ document.querySelectorAll('[data-product-gallery]').forEach(gallery => {
   thumbnails.hidden = false;
   controls.hidden = false;
 });
+
+// Footer link groups: open on desktop, collapsed accordions on phones
+(() => {
+  const groups = document.querySelectorAll('.footer-col');
+  if (!groups.length || !window.matchMedia) return;
+  const mobile = window.matchMedia('(max-width: 800px)');
+  const sync = () => groups.forEach((group) => { group.open = !mobile.matches; });
+  sync();
+  mobile.addEventListener ? mobile.addEventListener('change', sync) : mobile.addListener(sync);
+})();
