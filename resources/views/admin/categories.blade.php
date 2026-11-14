@@ -9,7 +9,7 @@
  <div class="admin-categories">
  @forelse($categories as $category)
  <article class="admin-category">
-  <img src="/images/{{ $category->image }}" alt="" width="72" height="88" loading="lazy">
+  <img src="{{ \App\Support\StoreImage::url($category->image) }}" alt="" width="72" height="88" loading="lazy">
   <div><h2>{{ $category->name }}</h2><p>{{ $category->name_en }} · {{ $category->products_count }} منتج</p><span class="category-status {{ $category->is_visible?'is-visible':'' }}">{{ $category->is_visible?'ظاهر في المتجر':'مخفي من المتجر' }}</span></div>
   <form method="post" action="/admin/categories/{{ $category->id }}/visibility">
    @csrf @method('PATCH')

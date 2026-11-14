@@ -28,7 +28,7 @@
             <div class="home-categories">
                 @foreach($categories as $category)
                     <a class="home-category" href="/category/{{ $category->slug }}" data-reveal>
-                        <img src="/images/{{ $category->image }}" alt="" loading="lazy" width="480" height="600">
+                        <img src="{{ \App\Support\StoreImage::url($category->image) }}" alt="" loading="lazy" width="480" height="600">
                         <span>{{ $category->label }}</span>
                     </a>
                 @endforeach

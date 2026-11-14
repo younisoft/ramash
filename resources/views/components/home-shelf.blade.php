@@ -3,7 +3,7 @@
 <section class="home-shelf {{ $pinned && $image ? 'home-shelf-pinned' : '' }}" id="{{ $id }}" aria-labelledby="{{ $id }}-heading">
     @if($image)
         <a class="collection-banner" href="{{ $href }}" aria-label="{{ $title }}" @unless($pinned) data-reveal @endunless>
-            <img src="/images/{{ $image }}" alt="" loading="lazy">
+            <img src="{{ \App\Support\StoreImage::url($image) }}" alt="" loading="lazy">
             <span>{{ $title }}</span>
         </a>
     @endif

@@ -6,14 +6,14 @@
         <div class="gallery-thumbs" hidden>
             @foreach($images as $image)
                 <button type="button" data-gallery-image="{{ $loop->index }}" aria-pressed="{{ $loop->first ? 'true' : 'false' }}" aria-label="{{ __('عرض الصورة :number', ['number' => $loop->iteration]) }}">
-                    <img src="/images/{{ $image }}" alt="" loading="lazy" width="72" height="88">
+                    <img src="{{ \App\Support\StoreImage::url($image) }}" alt="" loading="lazy" width="72" height="88">
                 </button>
             @endforeach
         </div>
     @endif
     <div class="gallery-stage">
         <button class="gallery-main" data-open="zoom" aria-label="{{ __('تكبير صورة المنتج') }}">
-            <img src="/images/{{ $product->image }}" alt="{{ $product->label }}" fetchpriority="high" data-gallery-main>
+            <img src="{{ \App\Support\StoreImage::url($product->image) }}" alt="{{ $product->label }}" fetchpriority="high" data-gallery-main>
             <span>＋ {{ __('تكبير') }}</span>
         </button>
         @if(count($images) > 1)

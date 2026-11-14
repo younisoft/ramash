@@ -1,7 +1,7 @@
 @props(['product','minimal'=>false])
 <article class="product-card {{ $minimal?'shemagh-card':'' }}" data-category="{{ $product->category->slug }}">
  <div class="product-image">
-  <a href="{{ route('product',$product->slug) }}"><img src="/images/{{ $product->image }}" alt="{{ $product->label }}" loading="lazy" width="600" height="760"></a>
+  <a href="{{ route('product',$product->slug) }}"><img src="{{ \App\Support\StoreImage::url($product->image) }}" alt="{{ $product->label }}" loading="lazy" width="600" height="760"></a>
   @unless($minimal)
   @if($product->discount)<span class="product-tag sale">−{{ $product->discount }}%</span>@elseif($product->tailored)<span class="product-tag">{{ __('على مقاسك') }}</span>@else<span class="product-tag">{{ __('اختيار رماش') }}</span>@endif
   @endunless
