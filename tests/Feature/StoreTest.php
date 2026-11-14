@@ -39,7 +39,7 @@ class StoreTest extends TestCase {
  }
  public function test_policy_page_and_footer():void{
   $this->get('/pages/privacy')->assertOk()->assertSee('سياسة الاستخدام والخصوصية')->assertSee('حقوقك على بياناتك')->assertSee('375 ر.س')->assertSee('الهيئة السعودية للبيانات والذكاء الاصطناعي');
-  $this->get('/')->assertOk()->assertSee('روابط سريعة')->assertSee('خدمات العملاء')->assertSee('وسائل التواصل')->assertSee('title="Visa"',false)->assertSee('title="mada"',false)->assertSee('طرق الدفع المتاحة عند الإطلاق');
+  $this->get('/')->assertOk()->assertSee('روابط سريعة')->assertSee('خدمات العملاء')->assertSee('وسائل التواصل')->assertSee('title="Visa"',false)->assertSee('title="mada"',false)->assertSee('title="Tabby"',false)->assertSee('طرق الدفع المتاحة عند الإطلاق');
   config(['store.social.instagram'=>'https://instagram.com/example']);$this->get('/')->assertSee('href="https://instagram.com/example"',false);
   $this->post('/locale',['locale'=>'en']);$this->get('/pages/privacy')->assertOk()->assertSee('Terms of use &amp; privacy',false)->assertSee('Your data rights')->assertSee('Quick links');
  }

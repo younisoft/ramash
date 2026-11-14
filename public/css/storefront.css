@@ -184,3 +184,4 @@ body:has(dialog[open]) { overflow: hidden; }
 .site-footer details.footer-col{border-bottom:0;padding:0}
 .site-footer .footer-col>summary:after{content:none}
 @media(max-width:800px){.site-footer details.footer-col{border-top:1px solid var(--ft-line)}.site-footer .footer-col>summary:after{content:'+'}.site-footer .footer-col[open]>summary:after{content:'−'}}
+.pay-tabby{padding:0;background:none;min-width:0;overflow:hidden}.pay-tabby img{display:block;height:38px;width:auto;border-radius:6px}

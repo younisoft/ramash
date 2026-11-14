@@ -63,6 +63,7 @@
       <li class="pay-badge pay-visa" title="Visa"><x-brand-icon name="visa" size="38"/><span class="visually-hidden">Visa</span></li>
       <li class="pay-badge pay-mastercard" title="Mastercard"><span class="mc-mark" aria-hidden="true"><i></i><i></i></span><span class="visually-hidden">Mastercard</span></li>
       <li class="pay-badge pay-tamara" title="Tamara"><span>tamara</span></li>
+      <li class="pay-badge pay-tabby" title="Tabby"><img src="/images/payments/tabby.png" alt="Tabby" width="95" height="38" loading="lazy"></li>
     </ul>
   </div>
 
