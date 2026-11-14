@@ -1,5 +1,5 @@
 @props(['product','minimal'=>false])
-<article class="product-card {{ $minimal?'shemagh-card':'' }}">
+<article class="product-card {{ $minimal?'shemagh-card':'' }}" data-category="{{ $product->category->slug }}">
  <div class="product-image">
   <a href="{{ route('product',$product->slug) }}"><img src="/images/{{ $product->image }}" alt="{{ $product->label }}" loading="lazy" width="600" height="760"></a>
   @unless($minimal)

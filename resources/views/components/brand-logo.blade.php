@@ -1,1 +1,1 @@
-<img class="brand-logo" src="/images/{{ app()->getLocale()==='ar'?'ramash-horizontal-ar.svg':'ramash-horizontal-en.svg' }}" alt="{{ app()->getLocale()==='ar'?'رماش':'Ramash' }}" width="320" height="100">
+<img class="brand-logo" src="/images/{{ app()->getLocale()==='ar'?'ramash-horizontal-ar.svg?v=icon-left':'ramash-horizontal-en.svg' }}" alt="{{ app()->getLocale()==='ar'?'رماش':'Ramash' }}" width="320" height="100">

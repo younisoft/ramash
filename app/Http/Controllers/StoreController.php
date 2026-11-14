@@ -1,10 +1,33 @@
 <?php
 namespace App\Http\Controllers;
-use App\Models\{Category,Product};
+use App\Models\{Category,Product,Review};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 class StoreController {
- public function home(){return view('home',['featured'=>Product::with('category','variants')->visible()->where('featured',true)->take(4)->get(),'categories'=>Category::visible()->orderBy('sort')->get(),'shemaghs'=>Product::with('category','variants')->visible()->whereHas('category',fn($q)=>$q->where('slug','shemagh'))->orderByDesc('featured')->orderBy('id')->take(4)->get(),'newProducts'=>Product::with('category','variants')->visible()->latest('id')->take(4)->get()]);}
+ public function home()
+ {
+  $categories = Category::visible()->orderBy('sort')->get();
+  $products = Product::with('category', 'variants')->visible();
+  $collections = [];
+  foreach (['thobes', 'outerwear', 'casual', 'shemagh', 'perfumes', 'shoes', 'leather'] as $slug) {
+   $category = $categories->firstWhere('slug', $slug);
+   if (!$category) {
+    continue;
+   }
+
+   $collections[$slug] = (clone $products)->where('category_id', $category->id)
+    ->when($slug === 'shemagh', fn ($query) => $query->orderByDesc('featured')->orderBy('id'))
+    ->latest('id')->take($slug === 'shemagh' ? 4 : 8)->get();
+  }
+
+  return view('home', [
+   'categories' => $categories,
+   'collections' => $collections,
+   'featured' => (clone $products)->where('featured', true)->orderBy('id')->take(4)->get(),
+   'reviews' => Review::with('user', 'product')->where('approved', true)
+    ->whereHas('product', fn ($query) => $query->visible())->latest()->take(6)->get(),
+  ]);
+ }
  public function catalog(Request $request, ?string $category=null){
   $selected=$category?Category::visible()->where('slug',$category)->firstOrFail():null;
   $query=Product::with('category','variants')->visible();

@@ -10,3 +10,4 @@
 /public/preview.html
 .DS_Store
 /storage/framework/cache/data/*
+/.claude/settings.local.json
