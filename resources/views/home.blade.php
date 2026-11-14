@@ -5,7 +5,10 @@
 
 @section('content')
 <section class="hero home-hero" data-home-hero>
-    <img class="hero-image" src="/images/ramash-hero.webp" alt="{{ __('إطلالة من مجموعة رماش') }}" fetchpriority="high">
+    <picture>
+        <source media="(max-width: 800px)" srcset="/images/ramash-hero-mobile.webp">
+        <img class="hero-image" src="/images/ramash-hero.webp" alt="{{ __('إطلالة من مجموعة رماش') }}" fetchpriority="high">
+    </picture>
     <div class="hero-shade"></div>
     <div class="hero-content home-wrap">
         <h1>{{ __('حضورك،') }}<br>{{ __('في التفاصيل.') }}</h1>

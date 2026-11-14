@@ -89,7 +89,7 @@ body:has(dialog[open]) { overflow: hidden; }
   .home-hero { height: min(82svh, 750px); min-height: 475px; }
   .home-hero .hero-content { align-items: end; padding-block-end: 112px; }
   .home-hero h1 { font-size: clamp(36px, 11vw, 56px); }
-  .home-hero .hero-image { object-position: 57% 42%; }
+  .home-hero .hero-image { object-position: 29% center; }
   .home-products, .home-categories { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 12px; }
   .home-rail { grid-template-columns: none; grid-auto-columns: 46%; }
   .home-shelf > .collection-banner { margin-block-end: 24px; }
@@ -185,3 +185,58 @@ body:has(dialog[open]) { overflow: hidden; }
 .site-footer .footer-col>summary:after{content:none}
 @media(max-width:800px){.site-footer details.footer-col{border-top:1px solid var(--ft-line)}.site-footer .footer-col>summary:after{content:'+'}.site-footer .footer-col[open]>summary:after{content:'−'}}
 .pay-tabby{padding:0;background:none;min-width:0;overflow:hidden}.pay-tabby img{display:block;height:38px;width:auto;border-radius:6px}
+
+/* Keep intrinsic form, table and product widths inside their layout columns. */
+.product-detail > *, .checkout-grid > *, .form-grid > *, .filter-controls > *,
+.cart-line > *, .footer-main > *, .product-card { min-width: 0; }
+.prose, .admin-order, .account-order, .product-information, .footer-contact,
+.mini-line > div, .cart-line h2 { overflow-wrap: anywhere; }
+.table-wrap { max-width: 100%; overscroll-behavior-inline: contain; }
+
+@media (max-width: 800px) {
+  :root { --store-header-height: 60px; }
+  .site-header .header-main, .home-wrap { width: calc(100% - 28px); }
+  .site-header .brand-logo { width: 100px; }
+  .site-header .header-tools { gap: 0; }
+  .site-header .header-tools .icon-button { width: 44px; min-width: 44px; min-height: 44px; }
+  .announcement { height: auto; min-height: 40px; padding-block: 6px; gap: 8px; line-height: 1.5; }
+  .announcement > span:not(.soon-badge) { font-size: 11px; }
+  .announcement .soon-badge { flex-shrink: 0; }
+  .home-hero { height: clamp(480px, 133.333vw, 720px); min-height: 0; background: #30261d; }
+  .home-hero .hero-image { top: 0; height: 100%; object-position: center top; }
+  .home-hero.hero .hero-shade { background: linear-gradient(0deg, #171310eb 0%, #171310aa 18%, #17131015 52%, transparent 72%); }
+  .home-hero .hero-content { width: calc(100% - 40px); align-items: end; padding-block-end: 112px; }
+  .home-hero h1, [dir=ltr] .home-hero .hero-content h1 { font-size: clamp(34px, 9vw, 48px); line-height: 1.25; margin: 0; }
+  .home-hero-shop { bottom: 48px; min-height: 44px; display: flex; align-items: center; }
+  .home-products, .home-categories { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .home-rail { grid-template-columns: none; grid-auto-columns: 46%; }
+  .form-grid, .checkout-grid, .product-detail { grid-template-columns: minmax(0, 1fr); }
+  .filter-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  input:not([type=checkbox]):not([type=radio]), select, textarea { min-width: 0; max-width: 100%; }
+  .inline-form, .section-heading, .account-order, .form-title { flex-wrap: wrap; }
+  .inline-form { row-gap: 8px; }
+  .quantity { flex-shrink: 0; }
+  .purchase-actions { padding-bottom: max(12px, env(safe-area-inset-bottom)); z-index: 10; }
+  .purchase-actions > .button { min-width: 0; }
+  .mini-line img, .payment-option > svg { flex-shrink: 0; }
+  .dialog-close, .favorite, .language { min-width: 44px; min-height: 44px; }
+  .menu-dialog .dialog-body { padding-bottom: max(30px, env(safe-area-inset-bottom)); }
+  .search-dialog { max-height: calc(100dvh - 24px); overflow-y: auto; }
+  .toast { top: calc(var(--store-header-height) + 12px); flex-wrap: wrap; overflow-wrap: anywhere; }
+  .footer-col a { display: inline-block; padding-block: 6px; }
+  .footer-col li { margin-bottom: 3px; }
+}
+
+@media (max-width: 359px) {
+  .site-header .header-main { width: calc(100% - 16px); }
+  .site-header .brand-logo { width: 88px; }
+  .home-shelf-actions { flex-wrap: wrap; gap: 12px; }
+  .cart-line { grid-template-columns: 70px minmax(0, 1fr); gap: 12px; }
+  .cart-line img { width: 70px; }
+  .order-summary { padding: 18px; }
+}
+
+@media (max-width: 800px) and (max-height: 500px) and (orientation: landscape) {
+  .home-hero { height: 480px; }
+  .home-hero .hero-image { object-position: center 20%; }
+}

@@ -11,3 +11,4 @@
 .DS_Store
 /storage/framework/cache/data/*
 /.claude/settings.local.json
+/composer.phar
